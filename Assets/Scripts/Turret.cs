@@ -109,4 +109,18 @@ public class Turret : MonoBehaviour
         Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
         
     }
+
+    public IEnumerator Disabling()
+    {
+        var range = targetingRange;
+        targetingRange = 0f;
+        //timeDisabled = Time.deltaTime+5;
+        yield return new WaitForSeconds(3.0f);
+        targetingRange = range;
+    }
+
+    public void Disable()
+    {
+        StartCoroutine(Disabling());
+    }
 }
