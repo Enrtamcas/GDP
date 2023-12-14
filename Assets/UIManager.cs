@@ -3,57 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    static UIManager current;
+    [SerializeField] private GameObject botonPausa;
+    [SerializeField] private GameObject menuPausa;
 
-    public TextMeshProUGUI monedasText;
-    public TextMeshProUGUI tiempoText;
-
-    public Image healthBar;
-
-    private void Awake()
-    {
-        if (current != null && current != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        current = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
-        current.healthBar.fillAmount = 1f;
-    }
-
-    public static void ActualizarMonedasUI(int monedasCount)
-    {
-        if (current == null)
-            return;
-
-        current.monedasText.text = monedasCount.ToString();
-    }
-
-    public static void UpdateTimeUI(float time)
-    {
-        if (current == null)
-            return;
-
-        int minutes = (int)time / 60;  
-        float seconds = (float)time % 60; 
-
-        current.tiempoText.text = minutes.ToString("00" + ":" + seconds.ToString("00"));
-    }
-
-    public static void actualizarVidaUI(int vidaCount)
+    public void Pausa()
     { 
-        if(current == null)
-            return;
+        Time.timeScale = 0f;
+        Debug.Log("P");
+        botonPausa.SetActive(false);
+        menuPausa.SetActive(true);
+    }
 
-        current.healthBar.fillAmount = (float)vidaCount / 100f;
+    public void Continuar()
+    {
+        Time.timeScale = 1f;
+        Debug.Log("C");
+        botonPausa.SetActive(true);
+        menuPausa.SetActive(false);
+    }
+
+    public void Reiniciar()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Salir()
+    {
+        SceneManager.LoadScene("Menu Principal");
     }
 }

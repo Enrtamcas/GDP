@@ -38,22 +38,25 @@ public class CasillaScript : MonoBehaviour
     // Construir torreta
     private void OnMouseDown()
     {
-        // Si la casilla esta ocupada no construimos
-        if (tower != null) return;
-        
-        // En caso contrario, construimos la torre seleccionada.
-        // La torre selecionada es gestionada por el BuilManager
-        Tower towerToBuild = BuildManager.instance.GetSelectorTower();
-
-        if (towerToBuild.cost > LevelManager.instance.currency)
+        if (Time.timeScale == 1.0f)
         {
-            Debug.Log("No tienes dinero suficiente");
-            return;
+            // Si la casilla esta ocupada no construimos
+            if (tower != null) return;
+
+            // En caso contrario, construimos la torre seleccionada.
+            // La torre selecionada es gestionada por el BuilManager
+            Tower towerToBuild = BuildManager.instance.GetSelectorTower();
+
+            if (towerToBuild.cost > LevelManager.instance.currency)
+            {
+                Debug.Log("No tienes dinero suficiente");
+                return;
+            }
+
+            LevelManager.instance.SpendCurrency(towerToBuild.cost);
+
+            tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
         }
-
-        LevelManager.instance.SpendCurrency(towerToBuild.cost);
-
-        tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
 
 
     }

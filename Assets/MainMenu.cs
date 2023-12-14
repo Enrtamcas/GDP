@@ -19,11 +19,11 @@ public class MainMenu : MonoBehaviour
 
     public void EscenaJuego()
     {
-        SceneManager.LoadScene("Pantalla de Juego");
+        SceneManager.LoadScene("Nivel 1");
     }
 
-    public void MenuDeOpciones()
+    public void Salir()
     {
-        SceneManager.LoadScene("Menú de Opciones");
+        Application.Quit();
     }
 }
