@@ -43,7 +43,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No tienes suficiente dinero");
+            Debug.Log("No tienes suficiente vida");
             return false;
         }
     }

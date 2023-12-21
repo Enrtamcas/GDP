@@ -49,7 +49,7 @@ public class CasillaScript : MonoBehaviour
 
             if (towerToBuild.cost > LevelManager.instance.currency)
             {
-                Debug.Log("No tienes dinero suficiente");
+                Debug.Log("No tienes vida suficiente");
                 return;
             }
 

@@ -5,18 +5,10 @@ using TMPro;
 
 public class Menu : MonoBehaviour
 {
-    [Header("Dinero")]
+    [Header("Vida")]
     [SerializeField] TextMeshProUGUI currencyUI;
 
     [SerializeField] Animator anim;
-
-    private bool isMenuOpen = true;
-
-    public void AbriMenu()
-    {
-        isMenuOpen = !isMenuOpen;
-        anim.SetBool("IsOpen", isMenuOpen);
-    }
 
     public void OnGUI()
     {
