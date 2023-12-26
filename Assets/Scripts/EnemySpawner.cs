@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
+    // Singleton
+    public static EnemySpawner instance;
+
     [Header("Referencias")] 
     // Tipo de enemigos que van a salir en el nivel
     [SerializeField] private GameObject[] enemyPrefabs;
@@ -13,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     // Modificar los atributos segun sea necesario.
     [Header("Atributos")]
     // Cantidad de enemigos por nivel
-    [SerializeField] private int baseEnemies = 8;
+    [SerializeField] public int baseEnemies = 8;
     // Enemigos por segundo
     [SerializeField] private float enemiesPerSecond = 0.5f;
     // Tiempo entre rondas
@@ -28,7 +31,9 @@ public class EnemySpawner : MonoBehaviour
     // Variable que lleva la cuenta de la cantidad de enemigos en pantalla con vida
     private int enemiesAlive;
     // Variable que lleva la cuenta de la cantidad de enemigos que faltan por spawnear
-    private int enemiesLeftToSpawn;
+    public int enemiesLeftToSpawn;
+    // Variable que muestra el total de enemigos esta ronda
+    public int totalEnemies;
     // Variable booleana para controlar los spawneos
     private bool isSpawning = false;
 
@@ -38,6 +43,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         // Cada vez que se invoque al evento OnEnemyDestroy se ejecutara EnemyDestroyed
         OnEnemyDestroy.AddListener(EnemyDestroyed);
     }
@@ -82,8 +88,7 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenWaves);
         // Despues de pasados timeBetweenWaves, comienza la ronda
         isSpawning = true;
-        enemiesLeftToSpawn = EnemiesPerWave();
-
+        totalEnemies = enemiesLeftToSpawn = EnemiesPerWave();
     }
 
     // Reseteo de variables isSpawning y tiempo desde el ultimo spawneo

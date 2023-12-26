@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         // Quitar vida al enemigo cuando la bala colisiona con el enemigo
-        other.gameObject.GetComponent<EnemyHealth>().TakeDamage(bulletDamage);
+        other.gameObject.GetComponent<EnemyHealth>().TakeDamage(bulletDamage,other.gameObject.GetComponent<EnemyHealth>());
         Destroy(gameObject);
     }
 }

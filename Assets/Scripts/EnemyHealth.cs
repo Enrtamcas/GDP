@@ -13,9 +13,24 @@ public class EnemyHealth : MonoBehaviour
 
     private bool isDestroyed = false;
 
-    public void TakeDamage(int dmg)
+    private void OnEnable()
     {
-        hitPoints -= dmg;
+        // Suscribirse al evento de daño cuando el enemigo está activo
+        DamageEvent.OnEnemyDamage += TakeDamage;
+    }
+
+    private void OnDisable()
+    {
+        // Desuscribirse al evento de daño cuando el enemigo se desactiva
+        DamageEvent.OnEnemyDamage -= TakeDamage;
+    }
+
+    public void TakeDamage(int dmg, EnemyHealth enemyHealth)
+    {
+        if (enemyHealth == this)
+        {
+            hitPoints -= dmg;
+        }
 
         if (hitPoints <= 0 && !isDestroyed)
         {

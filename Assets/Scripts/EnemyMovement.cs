@@ -32,6 +32,7 @@ public class EnemyMovement : MonoBehaviour
             // Si ha alcanzado el ultimo punto, se destruye
             if (pathIndex == LevelManager.instance.path.Length)
             {
+                LevelManager.instance.currency = LevelManager.instance.currency - 50;
                 // Invocamos el evento de enemigo destruido
                 EnemySpawner.OnEnemyDestroy.Invoke();
                 Destroy(gameObject);

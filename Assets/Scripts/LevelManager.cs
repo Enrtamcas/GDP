@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -21,12 +22,21 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        currency = 100;
+        currency = 250;
     }
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Update()
+    {
+        if(currency <= 0)
+            {
+            Debug.Log("a");
+            SceneManager.LoadScene("Menu Principal");
+        }
     }
 
     public void IncreaseCurrency(int amount)
@@ -46,6 +56,6 @@ public class LevelManager : MonoBehaviour
             Debug.Log("No tienes suficiente vida");
             return false;
         }
-    }
 
+    }
 }
