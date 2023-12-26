@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour
     public void EscenaJuego()
     {
         SceneManager.LoadScene("Nivel 1");
+        MusicControler.Instance.PlayOnLoop();
     }
 
     public void Salir()
